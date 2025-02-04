@@ -24,7 +24,7 @@ window.sendKrathong = function () {
     if (wishText.trim() !== "") {
         push(krathongsRef, { wish: wishText });
 
-        // ปิดป๊อปอัพหลังจาก 2 วินาที
+        // แสดงป๊อปอัพ
         const popup = document.getElementById("popup");
         popup.style.display = "block";
         setTimeout(() => popup.style.display = "none", 2000);
@@ -34,21 +34,22 @@ window.sendKrathong = function () {
 };
 
 // ฟังก์ชันเพิ่มกระทงให้ลอยแบบกระจาย
-function addKrathong(wish, delay = 0, positionIndex) {
+function addKrathong(wish, delay = 0) {
     const krathong = document.createElement("div");
     krathong.className = "krathong";
 
-    // กระจายตำแหน่งกระทงให้ไม่ซ้ำกัน
-    const topPositions = [20, 25, 30, 35, 40, 45]; // ระดับความสูงที่แตกต่างกัน
-    const topPosition = topPositions[positionIndex % topPositions.length];
-
-    krathong.style.top = `${topPosition}vh`; // ให้กระทงลอยสูงขึ้น
-    krathong.style.left = "-100px";
+    // ตั้งค่าตำแหน่งเริ่มต้นแบบสุ่มเพื่อให้กระทงไม่ซ้อนกัน
+    const randomTop = Math.floor(Math.random() * 25) + 10; // กระจายตั้งแต่ 10vh ถึง 35vh
+    const randomLeft = Math.floor(Math.random() * 80) + 10; // กระจายตำแหน่ง left
+    krathong.style.top = `${randomTop}vh`;
+    krathong.style.left = `${randomLeft}vw`;
     krathong.style.animation = `floatKrathong 30s linear infinite ${delay}s`;
 
+    // รูปกระทง
     const img = document.createElement("img");
-    img.src = "krathong.png"; // ปรับเป็นรูปกระทงของคุณ
+    img.src = "krathong.png";
 
+    // คำอวยพร
     const wishDiv = document.createElement("div");
     wishDiv.className = "wish";
     wishDiv.textContent = wish;
@@ -58,16 +59,15 @@ function addKrathong(wish, delay = 0, positionIndex) {
     document.getElementById("river").appendChild(krathong);
 }
 
-// ดึงข้อมูลกระทงทั้งหมดจาก Firebase และทำให้ลอยกระจายกัน
+// ดึงข้อมูลกระทงจาก Firebase และกระจายให้ไม่ติดกัน
 onValue(krathongsRef, (snapshot) => {
     const data = snapshot.val();
-    document.getElementById("river").innerHTML = ""; // ลบกระทงเก่าทั้งหมดก่อนเพิ่มใหม่
+    document.getElementById("river").innerHTML = ""; // ล้างกระทงเก่า
     if (data) {
-        let index = 0;
-        Object.values(data).forEach((entry, i) => {
-            // เพิ่มกระทงทีละ 4 อันให้กระจาย
-            addKrathong(entry.wish, i * 2, index);
-            index++;
+        let delay = 0;
+        Object.values(data).forEach((entry) => {
+            addKrathong(entry.wish, delay);
+            delay += 3; // เพิ่มระยะห่างของเวลาให้กระทงออกมาไม่พร้อมกัน
         });
     }
 });
