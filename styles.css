@@ -9,21 +9,77 @@ body {
     color: white;
 }
 
-/* พื้นที่แม่น้ำ */
+/* หัวข้อ */
+.header {
+    padding: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 32px;
+    text-shadow: 2px 2px 10px rgba(255, 255, 0, 0.8);
+}
+
+.header p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* กล่องใส่ข้อความ */
+.input-container {
+    margin: 10px;
+}
+
+input {
+    font-family: 'Sriracha', cursive;
+    padding: 10px;
+    width: 80%;
+    font-size: 16px;
+    border: 2px solid #fdd835;
+    border-radius: 5px;
+    background: #fff3e0;
+}
+
+/* ปุ่ม */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background: #ff9800;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff5722;
+}
+
+/* พื้นหลังแม่น้ำ */
 #river {
     position: absolute;
-    bottom: 15vh; /* ขยับขึ้นให้เห็นกระทงชัดขึ้น */
+    bottom: 12vh;
     width: 100%;
-    height: 50vh; /* ปรับให้สูงขึ้นเพื่อให้มีที่ว่าง */
+    height: 40vh;
     background: linear-gradient(to top, #003366, #004d40);
     overflow: hidden;
     z-index: 1;
 }
 
+/* เพิ่มเอฟเฟกต์แสงสะท้อนในแม่น้ำ */
+.reflection {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 15%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 80%);
+    opacity: 0.5;
+}
+
 /* กระทง */
 .krathong {
     position: absolute;
-    width: 60px; /* ลดขนาดกระทงลง */
+    width: 60px;
     text-align: center;
     animation: floatKrathong 30s linear infinite;
 }
@@ -36,19 +92,33 @@ body {
 /* คำอวยพร */
 .wish {
     color: white;
-    font-size: 12px; /* ลดขนาดตัวอักษร */
+    font-size: 12px;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.5); /* ทำให้เห็นง่ายขึ้น */
-    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 3px;
     border-radius: 5px;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
-/* กระทงลอยแบบกระจาย */
+/* ป๊อปอัพ */
+.popup {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 2;
+}
+
+/* กระทงลอยในรูปแบบ W */
 @keyframes floatKrathong {
     0% {
         left: -100px;
-        top: 10vh; /* เริ่มต้นสูงขึ้นกว่าเดิม */
+        top: 20vh;
     }
     25% {
         left: 25%;
@@ -60,11 +130,11 @@ body {
     }
     75% {
         left: 75%;
-        top: 25vh;
+        top: 15vh;
     }
     100% {
         left: 100%;
-        top: 30vh;
+        top: 20vh;
     }
 }
 
@@ -89,11 +159,7 @@ body {
     }
 
     #river {
-        height: 45vh; /* เพิ่มพื้นที่แม่น้ำให้เห็นกระทง */
-    }
-
-    .krathong {
-        width: 50px; /* ลดขนาดกระทงลงอีกในมือถือ */
+        height: 35vh;
     }
 
     .popup {
