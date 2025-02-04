@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+body {
+    font-family: 'Sriracha', cursive;
+    background: linear-gradient(to bottom, #0a0333, #003366);
+    overflow: hidden;
+    margin: 0;
+    text-align: center;
+    color: white;
+}
+
+/* พื้นที่แม่น้ำ */
+#river {
+    position: absolute;
+    bottom: 15vh; /* ขยับขึ้นให้เห็นกระทงชัดขึ้น */
+    width: 100%;
+    height: 50vh; /* ปรับให้สูงขึ้นเพื่อให้มีที่ว่าง */
+    background: linear-gradient(to top, #003366, #004d40);
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* กระทง */
+.krathong {
+    position: absolute;
+    width: 60px; /* ลดขนาดกระทงลง */
+    text-align: center;
+    animation: floatKrathong 30s linear infinite;
+}
+
+/* กระทงกับคำอวยพร */
+.krathong img {
+    width: 100%;
+}
+
+/* คำอวยพร */
+.wish {
+    color: white;
+    font-size: 12px; /* ลดขนาดตัวอักษร */
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.5); /* ทำให้เห็นง่ายขึ้น */
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+/* กระทงลอยแบบกระจาย */
+@keyframes floatKrathong {
+    0% {
+        left: -100px;
+        top: 10vh; /* เริ่มต้นสูงขึ้นกว่าเดิม */
+    }
+    25% {
+        left: 25%;
+        top: 15vh;
+    }
+    50% {
+        left: 50%;
+        top: 20vh;
+    }
+    75% {
+        left: 75%;
+        top: 25vh;
+    }
+    100% {
+        left: 100%;
+        top: 30vh;
+    }
+}
+
+/* สำหรับมือถือ */
+@media only screen and (max-width: 600px) {
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .header p {
+        font-size: 14px;
+    }
+
+    input {
+        width: 90%;
+    }
+
+    button {
+        width: 90%;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    #river {
+        height: 45vh; /* เพิ่มพื้นที่แม่น้ำให้เห็นกระทง */
+    }
+
+    .krathong {
+        width: 50px; /* ลดขนาดกระทงลงอีกในมือถือ */
+    }
+
+    .popup {
+        width: 80%;
+        top: 40%;
+        padding: 15px;
+    }
+}
